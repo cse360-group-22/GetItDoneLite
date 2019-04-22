@@ -17,6 +17,7 @@ public class Entry {
 	private String dueDate = "00/00/0000";
 	private String finishDate = "00/00/0000";
 	
+	//constructor for adding new entries in GUI
 	public Entry(int priority, String description, String dueDate) {
 		setStatus(STATUS_NOT_STARTED);
 		
