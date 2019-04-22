@@ -2,6 +2,8 @@ package proj;
 
 public class Entry {
 	
+	public static final String DATA_SEPARATOR = "~";
+	
 	public static final String STATUS_NOT_STARTED = "Not Started";
 	public static final String STATUS_IN_PROGRESS = "In Progress";
 	public static final String STATUS_FINISHED = "Finished";
@@ -11,9 +13,9 @@ public class Entry {
 	private String status = STATUS_NOT_STARTED;
 	private String description = "";
 	
-	private String startDate = "";
-	private String dueDate = "";
-	private String finishDate = "";
+	private String startDate = "00/00/0000";
+	private String dueDate = "00/00/0000";
+	private String finishDate = "00/00/0000";
 	
 	public Entry(int priority, String description, String dueDate) {
 		setStatus(STATUS_NOT_STARTED);
@@ -24,13 +26,15 @@ public class Entry {
 	}
 	
 	//Only use this one for loading from file
-	public Entry(int priority, String status, String description, String startDate, String dueDate, String finishDate) {
-		this.priority = priority;
-		this.status = status;
-		this.description = description;
-		this.startDate = startDate;
-		this.dueDate = dueDate;
-		this.finishDate = finishDate;
+	public Entry(String data) {
+		String[] parameters = data.split(DATA_SEPARATOR);
+		
+		this.priority = Integer.parseInt(parameters[0]);
+		this.status = parameters[1];
+		this.description = parameters[2];
+		this.startDate = parameters[3];
+		this.dueDate = parameters[4];
+		this.finishDate = parameters[5];
 	}
 	
 	public void start(String date) {
@@ -90,13 +94,12 @@ public class Entry {
 	
 	public String toString() {
 		String result = "";
-		String separator = "|";
-		result += getPriority() + separator;
-		result += getStatus() + separator;
-		result += getDescription() + separator;
-		result += getStartDate() + separator;
-		result += getDueDate() + separator;
-		result += getFinishDate() + separator;
+		result += getPriority() + DATA_SEPARATOR;
+		result += getStatus() + DATA_SEPARATOR;
+		result += getDescription() + DATA_SEPARATOR;
+		result += getStartDate() + DATA_SEPARATOR;
+		result += getDueDate() + DATA_SEPARATOR;
+		result += getFinishDate() + DATA_SEPARATOR;
 		return result;
 	}
 

@@ -14,6 +14,8 @@ import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.JSeparator;
 import javax.swing.JComboBox;
 import javax.swing.JList;
@@ -43,6 +45,18 @@ public class TeamProject360 extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		ArrayList<Entry> entries = new ArrayList<Entry>();
+		
+		//Example of saving to file
+		/*entries.add(new Entry(1, "This is a description", "01/01/2000"));
+		entries.add(new Entry(0, "Do this today", "01/02/2004"));
+		entries.add(new Entry(2, "Test Description", "06/01/2010"));
+		entries.add(new Entry(2, "This is a description", "08/06/2010"));
+		FileLoader.save("data.txt", entries);*/
+		
+		//Example of loading from file
+		entries = FileLoader.load("data.txt");
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
