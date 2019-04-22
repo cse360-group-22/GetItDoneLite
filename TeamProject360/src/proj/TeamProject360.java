@@ -81,7 +81,7 @@ public class TeamProject360 extends JFrame {
 		
 		JSeparator separator = new JSeparator();
 		
-		JButton btnNewButton = new JButton("Add");
+		JButton btnAdd = new JButton("Add");
 		
 		JButton btnSave = new JButton("Save");
 		
@@ -104,7 +104,7 @@ public class TeamProject360 extends JFrame {
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(btnNewButton)
+									.addComponent(btnAdd)
 									.addGap(6)
 									.addComponent(btnSave)
 									.addGap(5)
@@ -123,7 +123,7 @@ public class TeamProject360 extends JFrame {
 							.addComponent(separator, GroupLayout.PREFERRED_SIZE, 0, GroupLayout.PREFERRED_SIZE)
 							.addGap(12)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnNewButton)
+								.addComponent(btnAdd)
 								.addComponent(btnSave)
 								.addComponent(btnRestore)
 								.addComponent(btnPrint)))

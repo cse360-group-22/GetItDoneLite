@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class FileLoader {
 	
+	//Loads string from text file and creates entry list based on data
 	public static ArrayList<Entry> load(String path) {
 		ArrayList<Entry> entries = new ArrayList<Entry>();
 		
@@ -32,8 +33,8 @@ public class FileLoader {
 		return entries;
 	}
 	
+	//Saves entry list into text file
 	public static void save(String path, ArrayList<Entry> entries) {
-		String separator = "~";
 		try {
 			PrintWriter writer = new PrintWriter(path, "UTF-8");
 			for(Entry entry : entries) {

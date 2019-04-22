@@ -13,11 +13,11 @@ public class Entry {
 	private String status = STATUS_NOT_STARTED;
 	private String description = "";
 	
-	private String startDate = "00/00/0000";
-	private String dueDate = "00/00/0000";
-	private String finishDate = "00/00/0000";
+	private String startDate = "MM/DD/YYYY";
+	private String dueDate = "MM/DD/YYYY";
+	private String finishDate = "MM/DD/YYYY";
 	
-	//constructor for adding new entries in GUI
+	//Constructor for adding new entries in GUI
 	public Entry(int priority, String description, String dueDate) {
 		setStatus(STATUS_NOT_STARTED);
 		
@@ -26,7 +26,7 @@ public class Entry {
 		this.dueDate = dueDate;
 	}
 	
-	//Only use this one for loading from file
+	//Creates new entry based on data from text file
 	public Entry(String data) {
 		String[] parameters = data.split(DATA_SEPARATOR);
 		
@@ -48,6 +48,10 @@ public class Entry {
 		finishDate = date;
 	}
 	
+	public void delete() {
+		setStatus(STATUS_DELETED);
+	}
+	
 	public int getPriority() {
 		return priority;
 	}
@@ -61,6 +65,7 @@ public class Entry {
 	}
 	
 	public void setStatus(String status) {
+		//Make sure status is valid
 		if(!status.equals(STATUS_NOT_STARTED) && !status.equals(STATUS_IN_PROGRESS) &&
 				!status.equals(STATUS_FINISHED) && !status.equals(STATUS_DELETED)) {
 			return;
@@ -93,6 +98,7 @@ public class Entry {
 		return finishDate;
 	}
 	
+	//Returns string that is stored in text file when saving
 	public String toString() {
 		String result = "";
 		result += getPriority() + DATA_SEPARATOR;
