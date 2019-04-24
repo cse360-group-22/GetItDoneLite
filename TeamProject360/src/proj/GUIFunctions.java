@@ -7,8 +7,7 @@ import java.util.Comparator;
 public class GUIFunctions {
 
 	public static ArrayList<Entry> addEntry(ArrayList<Entry> myList, String
-			description, String dueDate)
-	{
+			description, String dueDate) {
 		int priority = myList.size() + 1;
 		Entry newEntry = new Entry(priority, description, dueDate);
 		
@@ -18,8 +17,7 @@ public class GUIFunctions {
 	}
 	
 	public static ArrayList<Entry> deleteEntry(ArrayList<Entry> myList,
-			int entryIndex)
-	{
+			int entryIndex) {
 		myList.remove(entryIndex);
 		
 		return myList;
@@ -27,8 +25,30 @@ public class GUIFunctions {
 	
 	public static ArrayList<Entry> editEntry(ArrayList<Entry> myList,
 			int entryIndex, String description, String dueDate, String status,
-			int priority)
-	{
+			int priority) {
+		
+		//keep track of old priority
+		int lastPriority = myList.get(entryIndex).getPriority();
+		
+		//check if priority is changed or not
+		if (lastPriority != priority) {
+			
+			//check if lastPriority is < or > new priority
+			boolean lessThan = false;
+			if (lastPriority < priority) {
+				lessThan = true;
+			}
+			
+			//call changePriority based on range to be changed
+			if (lessThan == true) {
+				myList = changePriority(myList, lastPriority + 1, priority, lessThan);
+			}
+			else {
+				myList = changePriority(myList, priority, lastPriority - 1, lessThan);
+			}
+		}
+		
+		//make changes to entry
 		myList.get(entryIndex).setDescription(description);
 		myList.get(entryIndex).setDueDate(dueDate);
 		myList.get(entryIndex).setPriority(priority);
@@ -37,7 +57,29 @@ public class GUIFunctions {
 		return myList;
 	}
 	
-	public static void SortDispaly(String selected)
+	public static ArrayList<Entry> changePriority(ArrayList<Entry> myList,
+			int start, int end, boolean lessThan) {
+		if(lessThan == true) {
+			for(int i = 0; i < myList.size(); i++) {
+				int pri = myList.get(i).getPriority();
+				if (pri >= start && pri <= end) {
+					myList.get(i).setPriority(pri - 1);
+				}
+			}
+		}
+		else {
+			for(int i = 0; i < myList.size(); i++) {
+				int pri = myList.get(i).getPriority();
+				if (pri >= start && pri <= end) {
+					myList.get(i).setPriority(pri + 1);
+				}
+			}
+		}
+		
+		return myList;
+	}
+	
+	public static void SortDisplay(String selected)
 	{
 		switch (selected)
 		{
