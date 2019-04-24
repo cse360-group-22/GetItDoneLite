@@ -1,6 +1,8 @@
 package proj;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class GUIFunctions {
 
@@ -33,5 +35,50 @@ public class GUIFunctions {
 		myList.get(entryIndex).setStatus(status);
 		
 		return myList;
+	}
+	
+	public static void SortDispaly(String selected)
+	{
+		switch (selected)
+		{
+			case "Priority": 
+				Collections.sort(entries, new Comparator<Entry>() 
+				{
+					public int compair(Entry e1, Entry e2)
+					{
+						return Integer.valueOf(e1.getPriority()).compareTo(e2.getPriority());
+					}
+				});
+				break;
+				
+			case "Due Date":
+				Collections.sort(entries, new Comparator<Entry>()
+				{
+					public int compair(Entry e1, Entry e2)
+					{
+						return String.valueOf(e1.getDueDate()).compareTo(e2.getDueDate());
+					}
+				});
+				break;
+				
+			case "Status":
+				Collections.sort(entries, new Comparator<Entry>()
+				{
+					public int compair(Entry e1, Entry e2)
+					{
+						return String.valueOf(e1.getStatus()).compareTo(e2.getStatus());
+					}
+				});
+				break;
+			case "Description":
+				Collections.sort(entries, new Comparator<Entry>()
+				{
+					public int compair(Entry e1, Entry e2)
+					{
+						return String.valueOf(e1.getDescription()).compareTo(e2.getDescription());
+					}
+				});
+				break;
+		}
 	}
 }
