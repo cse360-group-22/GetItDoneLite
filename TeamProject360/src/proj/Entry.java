@@ -26,6 +26,14 @@ public class Entry {
 		this.dueDate = dueDate;
 	}
 	
+	public Entry(String priority, String description, String dueDate) {
+		setStatus(STATUS_NOT_STARTED);
+		
+		this.priority = Integer.parseInt(priority);
+		this.description = description;
+		this.dueDate = dueDate;
+	}
+	
 	//Creates new entry based on data from text file
 	public Entry(String data) {
 		String[] parameters = data.split(DATA_SEPARATOR);
