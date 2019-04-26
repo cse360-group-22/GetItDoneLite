@@ -99,7 +99,7 @@ public class GUIFunctions {
 				{
 					public int compare(Entry e1, Entry e2)
 					{
-						return String.valueOf(e1.getDueDate()).compareTo(e2.getDueDate());
+						return String.valueOf(e1.getDueDate().substring(6) + e1.getDueDate().substring(3,4) + e1.getDueDate().substring(0,1)).compareTo(e2.getDueDate().substring(6) + e2.getDueDate().substring(3,4) + e2.getDueDate().substring(0,1));
 					}
 				});
 				break;
