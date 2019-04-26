@@ -1,5 +1,9 @@
 package test;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Entry{
 
 public static final String DATA_SEPARATOR = "~";
@@ -13,15 +17,22 @@ private int priority = 0;
 private String status = STATUS_NOT_STARTED;
 private String description = "";
 
-private String startDate = "MM/DD/YYYY";
+private String startDate = Calendar.getInstance().getTime().toString();
 private String dueDate = "MM/DD/YYYY";
-private String finishDate = "MM/DD/YYYY";
+private static String finishDate = Calendar.getInstance().getTime().toString();
 
 //Constructor for adding new entries in GUI
 public Entry(int priority, String description, String dueDate) {
 	setStatus(STATUS_NOT_STARTED);
 	
 	this.priority = priority;
+	this.description = description;
+	this.dueDate = dueDate;
+}
+
+public Entry(String priority, String description, String dueDate) {
+	setStatus(STATUS_NOT_STARTED);
+	this.priority = Integer.parseInt(priority);
 	this.description = description;
 	this.dueDate = dueDate;
 }
@@ -101,13 +112,32 @@ public String getFinishDate() {
 //Returns string that is stored in text file when saving
 public String toString() {
 	String result = "";
-	result += getPriority() + DATA_SEPARATOR;
-	result += getStatus() + DATA_SEPARATOR;
-	result += getDescription() + DATA_SEPARATOR;
-	result += getStartDate() + DATA_SEPARATOR;
-	result += getDueDate() + DATA_SEPARATOR;
-	result += getFinishDate() + DATA_SEPARATOR;
+	result += "    " + getPriority() + "         ";
+	result += "   " + getStatus() +  "    " ;
+	result += getDescription() + " ";
+	result += "               " + getStartDate() + " " ;
+	result += "      " + getDueDate() + " "  + " ";
+	result += "      " + getFinishDate() + " " + " ";
 	return result;
 }
+
+public String toString1() {
+	
+	String result = "";
+	result += " " + Integer.toString(getPriority()) + " ";
+	result += " " + getStatus() +  " " ;
+	result += getDescription() + " ";
+	result += " " + getStartDate() + " " ;
+	result += " " + getDueDate() + " "  + " ";
+	result += " " + getFinishDate() + " " + " ";
+	System.out.println(result);
+	return result;
+}
+
+public boolean toStringTest(){
+	
+	return ArrList.entries.add(new Entry(getPriority(), getDescription(), getDueDate()));
+	
+	}	
 
 }

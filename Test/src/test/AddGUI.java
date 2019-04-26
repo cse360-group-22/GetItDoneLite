@@ -52,7 +52,7 @@ public class AddGUI extends JFrame {
 	 */
 	public AddGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 350);
+		setBounds(100, 100, 334, 245);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -67,17 +67,18 @@ public class AddGUI extends JFrame {
 		JLabel lblDueDate = new JLabel("Due Date:");
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"MM", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
 		
 		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"DD", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
 		
 		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"YYYY", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
 		
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int ii = ArrList.entries.size();
 				
 				if(textField_1.getText().isEmpty()) {
 					descError.setText("Please enter a unique description");
@@ -85,7 +86,6 @@ public class AddGUI extends JFrame {
 				}else {
 					descError.setText("");
 				}
-			
 				/*try {
 					int i = Integer.parseInt(textField.getText());
 					errorText.setText("");
@@ -93,7 +93,6 @@ public class AddGUI extends JFrame {
 					errorText.setText("Invalid Number");
 					return;
 				}*/
-				
 				String MM = "";
 				String DD = "";
 				String YYYY = "";
@@ -106,12 +105,12 @@ public class AddGUI extends JFrame {
 				String Date = MM + "/" + DD + "/" + YYYY;
 				//Add function to list
 				GUIFunctions.addEntry(ArrList.entries, descrip, Date);
-				FileLoader.save("data.txt", ArrList.entries);
-				for(int ii = 0; ii < ArrList.entries.size(); ii++) {
-					System.out.println("Size: " + ArrList.entries.size());
+				if(ArrList.entries.size() == 0) {
+					return;
 				}
-				
-				
+				Main.model.addElement(ArrList.entries.get(ii));
+				Main.list_1.setModel(Main.model);
+				AddGUI.this.dispose();
 			}
 		});
 		
@@ -124,6 +123,12 @@ public class AddGUI extends JFrame {
 			}
 		});
 		
+		JLabel lblMm = new JLabel("MM");
+		
+		JLabel lblDd = new JLabel("DD");
+		
+		JLabel lblYyyy = new JLabel("YYYY");
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -131,29 +136,38 @@ public class AddGUI extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addComponent(descError)
+							.addContainerGap(308, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addComponent(lblDescription)
+							.addContainerGap(230, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addGap(118)
 							.addComponent(btnAdd)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnCancel)
-							.addGap(29))
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-							.addComponent(descError)
-							.addContainerGap(428, Short.MAX_VALUE))
+							.addContainerGap())
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblDescription)
-							.addContainerGap(350, Short.MAX_VALUE))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblMm))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(lblDd)
+									.addGap(38)
+									.addComponent(lblYyyy))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addGap(148))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(173, Short.MAX_VALUE))
+							.addContainerGap(53, Short.MAX_VALUE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(lblDueDate)
-							.addContainerGap(360, Short.MAX_VALUE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(252, Short.MAX_VALUE))))
+							.addContainerGap(246, Short.MAX_VALUE))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -161,21 +175,31 @@ public class AddGUI extends JFrame {
 					.addContainerGap()
 					.addComponent(lblDescription)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textField_1, GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+					.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(lblDueDate)
-					.addGap(3)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(descError)
-					.addGap(63)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAdd)
-						.addComponent(btnCancel))
-					.addGap(32))
+					.addGap(15)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnAdd)
+								.addComponent(btnCancel))
+							.addGap(27))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+									.addComponent(lblYyyy)
+									.addComponent(lblDd))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(descError)
+									.addGap(15))
+								.addComponent(lblMm))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(78))))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

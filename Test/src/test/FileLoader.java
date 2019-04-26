@@ -13,14 +13,13 @@ public class FileLoader {
 	//Loads string from text file and creates entry list based on data
 	public static ArrayList<Entry> load(String path) {
 		ArrayList<Entry> entries = new ArrayList<Entry>();
-		
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(path));
 			String line = null;
 			while((line = in.readLine()) != null) {
 				entries.add(new Entry(line));
-			}
 			in.close();
+			}
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -30,15 +29,18 @@ public class FileLoader {
 			System.out.println(entry.toString());
 		}*/
 		
-		return entries;
-	}
+		return ArrList.entries;
+}
 	
 	//Saves entry list into text file
 	public static void save(String path, ArrayList<Entry> entries) {
 		try {
+			int size;
 			PrintWriter writer = new PrintWriter(path, "UTF-8");
 			for(Entry entry : entries) {
-				writer.println(entry.toString());
+				writer.println(entry.toString1());
+				size = ArrList.file.size() + 1;
+				System.out.println(size);
 			}
 			writer.close();
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
